@@ -11,7 +11,8 @@ module.exports = {
 	async execute(interaction) {
         let user = interaction.user;
         let money = interaction.options.getInteger('money');
+        let formattedNum = new Intl.NumberFormat('en-US', {style: 'decimal'}).format(money);
         console.log(`${user}님의 gamble 요청`);
-        await interaction.reply(`${user} 배팅한 금액 : ${money}`);
+        await interaction.reply(`${user} 배팅한 금액 : $${formattedNum}`);
 	},
 };
