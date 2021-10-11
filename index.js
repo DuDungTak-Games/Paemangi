@@ -35,11 +35,6 @@ client.once('ready', async () => {
 	console.log('Ready!');
 });
 
-client.on('messageCreate', async message => {
-	if (message.author.bot) return;
-	currency.add(message.author.id, 1);
-});
-
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
