@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { Op } = require('sequelize');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 
