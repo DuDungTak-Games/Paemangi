@@ -3,7 +3,10 @@ const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-const currency = new Collection();
+var db_config = require('./config/database.js');
+var conn = db_config.init();
+
+db_config.connect(conn);
 
 
 client.once('ready', async () => {
@@ -26,7 +29,7 @@ client.on('interactionCreate', async interaction => {
 	if (!command) return;
 
 	try {
-		await command.execute(interaction, currency);
+		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
 		return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
