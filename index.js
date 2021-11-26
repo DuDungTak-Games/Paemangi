@@ -3,11 +3,6 @@ const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-var db_config = require('./config/database.js');
-var conn = db_config.init();
-
-db_config.connect(conn);
-
 
 client.once('ready', async () => {
 	console.log('Ready!');
@@ -19,13 +14,15 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.data.name, command);
+	console.log(file);
 }
+
+console.log(client.commands);
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
 
 	const command = client.commands.get(interaction.commandName);
-
 	if (!command) return;
 
 	try {
